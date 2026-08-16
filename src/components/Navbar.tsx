@@ -13,12 +13,19 @@ import {
   Search,
   X,
   Wand2,
-  SlidersHorizontal
+  SlidersHorizontal,
+  Dices,
+  Volume2,
+  VolumeX,
+  Sparkles
 } from 'lucide-react';
+import confetti from 'canvas-confetti';
+import { sounds } from '../utils/audioFeedback';
 
 export const Navbar: React.FC = () => {
   const { user, logout, openAuthModal } = useAuth();
   const {
+    wallpapers,
     favorites,
     customCategories,
     filters,
@@ -28,11 +35,15 @@ export const Navbar: React.FC = () => {
     setIsApkModalOpen,
     setIsCategoryModalOpen,
     isMobileSimulator,
-    setIsMobileSimulator
+    setIsMobileSimulator,
+    openPreviewModal
   } = useWallpaper();
 
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const [isMuted, setIsMuted] = useState(sounds.getMuted());
+  const [isRolling, setIsRolling] = useState(false);
+
   const searchInputRef = useRef<HTMLInputElement>(null);
   const profileRef = useRef<HTMLDivElement>(null);
 
@@ -59,15 +70,43 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  const handleSurpriseMe = () => {
+    if (wallpapers.length === 0) return;
+    setIsRolling(true);
+    sounds.playSparkle();
+
+    // Roll animation
+    setTimeout(() => {
+      const randomIndex = Math.floor(Math.random() * wallpapers.length);
+      const chosen = wallpapers[randomIndex];
+      setIsRolling(false);
+      openPreviewModal(chosen, 'phone-lock');
+      confetti({
+        particleCount: 40,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    }, 450);
+  };
+
+  const handleToggleAudio = () => {
+    const muted = sounds.toggleMute();
+    setIsMuted(muted);
+    if (!muted) {
+      sounds.playTap();
+    }
+  };
+
   return (
     <header className="sticky top-0 z-40 bg-slate-950/90 backdrop-blur-xl border-b border-slate-800/80 px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3 transition-all">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-3 sm:gap-4">
-        {/* Brand Logo - clean wallpaper icon, no Gemini branding */}
+        {/* Brand Logo */}
         <div className="flex items-center gap-3 sm:gap-6 flex-shrink-0">
           <div
             id="brand-logo"
             onClick={() => {
-              setFilters(prev => ({
+              sounds.playTap();
+              setFilters((prev) => ({
                 ...prev,
                 selectedCategory: 'all',
                 selectedCustomCategory: null,
@@ -98,27 +137,32 @@ export const Navbar: React.FC = () => {
           </div>
         </div>
 
-        {/* Global Search Bar - Responsive */}
+        {/* Global Search Bar */}
         <div className="flex-1 max-w-md hidden sm:block">
-          <div className={`relative transition-all rounded-xl ${
-            isSearchFocused ? 'ring-2 ring-indigo-500/50 bg-slate-900' : 'bg-slate-900/70 hover:bg-slate-900'
-          } border border-slate-800`}>
+          <div
+            className={`relative transition-all rounded-xl ${
+              isSearchFocused ? 'ring-2 ring-indigo-500/50 bg-slate-900' : 'bg-slate-900/70 hover:bg-slate-900'
+            } border border-slate-800`}
+          >
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <input
               id="global-search-input"
               ref={searchInputRef}
               type="text"
               value={filters.searchQuery}
-              onChange={(e) => setFilters(prev => ({ ...prev, searchQuery: e.target.value }))}
+              onChange={(e) => setFilters((prev) => ({ ...prev, searchQuery: e.target.value }))}
               onFocus={() => setIsSearchFocused(true)}
               onBlur={() => setIsSearchFocused(false)}
-              placeholder="Search 4K, AMOLED, Nature, Anime..."
+              placeholder="Search 4K, AMOLED, Flowers, Wave..."
               className="w-full pl-10 pr-16 py-2 bg-transparent text-sm text-slate-100 placeholder-slate-400 outline-none"
             />
             {filters.searchQuery ? (
               <button
                 id="clear-search-btn"
-                onClick={() => setFilters(prev => ({ ...prev, searchQuery: '' }))}
+                onClick={() => {
+                  sounds.playTap();
+                  setFilters((prev) => ({ ...prev, searchQuery: '' }));
+                }}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200"
               >
                 <X className="w-3.5 h-3.5" />
@@ -131,13 +175,45 @@ export const Navbar: React.FC = () => {
           </div>
         </div>
 
-        {/* Action Controls & Navigation */}
-        <div className="flex items-center gap-1.5 sm:gap-2.5">
-          {/* Favorites Button (Desktop / Tablet) */}
+        {/* Action Controls & Interactive Buttons */}
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          {/* Interactive "Surprise Me" Roulette Button */}
+          <button
+            id="nav-surprise-btn"
+            type="button"
+            onClick={handleSurpriseMe}
+            className={`px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-1.5 bg-gradient-to-r from-purple-600/30 to-indigo-600/30 hover:from-purple-600/50 hover:to-indigo-600/50 border border-purple-500/40 text-purple-200 hover:text-white transition active:scale-95 ${
+              isRolling ? 'animate-bounce' : ''
+            }`}
+            title="Pick a Random Wallpaper & Preview"
+          >
+            <Dices className={`w-4 h-4 text-purple-400 ${isRolling ? 'animate-spin' : ''}`} />
+            <span className="hidden md:inline">Surprise Me</span>
+          </button>
+
+          {/* Sound / Audio Haptic Feedback Toggle */}
+          <button
+            id="nav-sound-toggle-btn"
+            type="button"
+            onClick={handleToggleAudio}
+            className={`p-2 rounded-xl border transition ${
+              !isMuted
+                ? 'bg-indigo-600/20 border-indigo-500/40 text-indigo-300'
+                : 'bg-slate-900/80 border-slate-800 text-slate-400 hover:text-slate-200'
+            }`}
+            title={isMuted ? 'Tactile Sound Effects: Muted (Click to Turn ON)' : 'Tactile Sound Effects: ON'}
+          >
+            {!isMuted ? <Volume2 className="w-4 h-4 text-indigo-400" /> : <VolumeX className="w-4 h-4 text-slate-500" />}
+          </button>
+
+          {/* Favorites Button */}
           <button
             id="nav-favorites-btn"
             type="button"
-            onClick={() => setFilters(prev => ({ ...prev, onlyFavorites: !prev.onlyFavorites, selectedCustomCategory: null }))}
+            onClick={() => {
+              sounds.playTap();
+              setFilters((prev) => ({ ...prev, onlyFavorites: !prev.onlyFavorites, selectedCustomCategory: null }));
+            }}
             className={`hidden md:flex relative p-2 sm:px-3 sm:py-2 rounded-xl text-xs sm:text-sm font-medium items-center gap-1.5 border transition ${
               filters.onlyFavorites
                 ? 'bg-rose-500/15 border-rose-500/40 text-rose-400'
@@ -154,11 +230,14 @@ export const Navbar: React.FC = () => {
             )}
           </button>
 
-          {/* Custom Categories Button (Desktop / Tablet) */}
+          {/* Custom Categories Button */}
           <button
             id="nav-categories-btn"
             type="button"
-            onClick={() => setIsCategoryModalOpen(true)}
+            onClick={() => {
+              sounds.playTap();
+              setIsCategoryModalOpen(true);
+            }}
             className="hidden md:flex p-2 sm:px-3 sm:py-2 rounded-xl text-xs sm:text-sm font-medium items-center gap-1.5 bg-slate-900/80 border border-slate-800 text-slate-300 hover:text-slate-100 hover:border-slate-700 transition"
             title="Custom Albums & Boards"
           >
@@ -175,7 +254,10 @@ export const Navbar: React.FC = () => {
           <button
             id="nav-ai-studio-btn"
             type="button"
-            onClick={() => setIsAiModalOpen(true)}
+            onClick={() => {
+              sounds.playTap();
+              setIsAiModalOpen(true);
+            }}
             className="hidden sm:flex p-2 sm:px-3 sm:py-2 rounded-xl text-xs sm:text-sm font-medium items-center gap-1.5 bg-slate-900/90 border border-indigo-500/30 text-indigo-300 hover:text-white hover:border-indigo-500/60 transition shadow-sm"
           >
             <Wand2 className="w-4 h-4 text-indigo-400" />
@@ -186,7 +268,10 @@ export const Navbar: React.FC = () => {
           <button
             id="nav-upload-btn"
             type="button"
-            onClick={() => setIsUploadModalOpen(true)}
+            onClick={() => {
+              sounds.playTap();
+              setIsUploadModalOpen(true);
+            }}
             className="p-2 sm:px-3 sm:py-2 rounded-xl text-xs sm:text-sm font-medium hidden lg:flex items-center gap-1.5 bg-slate-900/80 border border-slate-800 text-slate-300 hover:text-slate-100 hover:border-slate-700 transition"
             title="Upload Custom Wallpaper"
           >
@@ -198,7 +283,10 @@ export const Navbar: React.FC = () => {
           <button
             id="nav-apk-hub-btn"
             type="button"
-            onClick={() => setIsApkModalOpen(true)}
+            onClick={() => {
+              sounds.playTap();
+              setIsApkModalOpen(true);
+            }}
             className="px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-md shadow-emerald-950/40 border border-emerald-400/30 transition active:scale-[0.98]"
           >
             <Smartphone className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
@@ -209,7 +297,10 @@ export const Navbar: React.FC = () => {
           <button
             id="nav-simulator-toggle-btn"
             type="button"
-            onClick={() => setIsMobileSimulator(prev => !prev)}
+            onClick={() => {
+              sounds.playTap();
+              setIsMobileSimulator((prev) => !prev);
+            }}
             className={`hidden lg:flex p-2 rounded-xl border transition ${
               isMobileSimulator
                 ? 'bg-indigo-600 text-white border-indigo-500'
@@ -226,7 +317,10 @@ export const Navbar: React.FC = () => {
               <button
                 id="user-profile-menu-btn"
                 type="button"
-                onClick={() => setIsProfileOpen(!isProfileOpen)}
+                onClick={() => {
+                  sounds.playTap();
+                  setIsProfileOpen(!isProfileOpen);
+                }}
                 className="flex items-center gap-1.5 p-1 pl-1 pr-2 rounded-full bg-slate-900 border border-slate-800 hover:border-slate-700 transition"
               >
                 <img
@@ -243,8 +337,11 @@ export const Navbar: React.FC = () => {
               <button
                 id="nav-signin-btn"
                 type="button"
-                onClick={() => openAuthModal('login')}
-                className="px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold bg-indigo-600 hover:bg-indigo-500 text-white transition shadow-md"
+                onClick={() => {
+                  sounds.playTap();
+                  openAuthModal('login');
+                }}
+                className="px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold bg-indigo-600 hover:bg-indigo-500 text-white transition shadow-md active:scale-95"
               >
                 Sign In
               </button>
@@ -260,83 +357,53 @@ export const Navbar: React.FC = () => {
                   <img
                     src={user.avatar}
                     alt={user.name}
-                    className="w-10 h-10 rounded-full object-cover ring-2 ring-indigo-500/40"
+                    className="w-10 h-10 rounded-full object-cover ring-2 ring-indigo-500/30"
                     referrerPolicy="no-referrer"
                   />
                   <div className="overflow-hidden">
-                    <p className="text-sm font-semibold text-slate-100 truncate">{user.name}</p>
+                    <p className="font-semibold text-sm text-slate-100 truncate">{user.name}</p>
                     <p className="text-xs text-slate-400 truncate">{user.email}</p>
-                    {user.isGuest && (
-                      <span className="inline-block mt-1 text-[10px] font-semibold text-amber-400 bg-amber-400/10 px-1.5 py-0.2 rounded border border-amber-400/20">
-                        Guest Session
-                      </span>
-                    )}
                   </div>
                 </div>
 
                 <div className="space-y-1">
                   <button
+                    type="button"
                     onClick={() => {
+                      sounds.playTap();
+                      setFilters((prev) => ({ ...prev, onlyFavorites: true }));
                       setIsProfileOpen(false);
-                      setFilters(prev => ({ ...prev, onlyFavorites: true, selectedCustomCategory: null }));
                     }}
-                    className="w-full px-3 py-2 rounded-xl text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800 flex items-center justify-between transition"
+                    className="w-full px-3 py-2 text-left text-xs font-medium rounded-xl hover:bg-slate-800 text-slate-200 flex items-center gap-2"
                   >
-                    <span className="flex items-center gap-2">
-                      <Heart className="w-3.5 h-3.5 text-rose-400" />
-                      Favorite Wallpapers
-                    </span>
-                    <span className="text-slate-400">{favorites.length}</span>
+                    <Heart className="w-4 h-4 text-rose-400" />
+                    <span>My Favorites ({favorites.length})</span>
                   </button>
 
                   <button
+                    type="button"
                     onClick={() => {
-                      setIsProfileOpen(false);
+                      sounds.playTap();
                       setIsCategoryModalOpen(true);
+                      setIsProfileOpen(false);
                     }}
-                    className="w-full px-3 py-2 rounded-xl text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800 flex items-center justify-between transition"
+                    className="w-full px-3 py-2 text-left text-xs font-medium rounded-xl hover:bg-slate-800 text-slate-200 flex items-center gap-2"
                   >
-                    <span className="flex items-center gap-2">
-                      <FolderHeart className="w-3.5 h-3.5 text-purple-400" />
-                      Custom Boards
-                    </span>
-                    <span className="text-slate-400">{customCategories.length}</span>
+                    <FolderHeart className="w-4 h-4 text-purple-400" />
+                    <span>My Boards ({customCategories.length})</span>
                   </button>
 
                   <button
+                    type="button"
                     onClick={() => {
-                      setIsProfileOpen(false);
-                      setIsUploadModalOpen(true);
-                    }}
-                    className="w-full px-3 py-2 rounded-xl text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800 flex items-center gap-2 transition"
-                  >
-                    <Upload className="w-3.5 h-3.5 text-slate-400" />
-                    Upload Wallpaper
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      setIsProfileOpen(false);
-                      setIsApkModalOpen(true);
-                    }}
-                    className="w-full px-3 py-2 rounded-xl text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800 flex items-center gap-2 transition"
-                  >
-                    <Smartphone className="w-3.5 h-3.5 text-emerald-400" />
-                    Download Mobile APK
-                  </button>
-                </div>
-
-                <div className="border-t border-slate-800/80 mt-2 pt-2">
-                  <button
-                    id="profile-logout-btn"
-                    onClick={() => {
-                      setIsProfileOpen(false);
+                      sounds.playTap();
                       logout();
+                      setIsProfileOpen(false);
                     }}
-                    className="w-full px-3 py-2 rounded-xl text-xs font-medium text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 flex items-center gap-2 transition"
+                    className="w-full px-3 py-2 text-left text-xs font-medium rounded-xl hover:bg-rose-500/20 text-rose-400 flex items-center gap-2 border-t border-slate-800/80 mt-1"
                   >
-                    <LogOut className="w-3.5 h-3.5" />
-                    Sign Out / Switch User
+                    <LogOut className="w-4 h-4" />
+                    <span>Sign Out</span>
                   </button>
                 </div>
               </div>
@@ -344,29 +411,6 @@ export const Navbar: React.FC = () => {
           </div>
         </div>
       </div>
-
-      {/* Mobile Search input - visible on small screens */}
-      <div className="mt-2.5 sm:hidden">
-        <div className="relative bg-slate-900 border border-slate-800 rounded-xl">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-          <input
-            type="text"
-            value={filters.searchQuery}
-            onChange={(e) => setFilters(prev => ({ ...prev, searchQuery: e.target.value }))}
-            placeholder="Search 4K, AMOLED, anime, nature..."
-            className="w-full pl-9 pr-8 py-2 bg-transparent text-xs text-slate-100 placeholder-slate-400 outline-none"
-          />
-          {filters.searchQuery && (
-            <button
-              onClick={() => setFilters(prev => ({ ...prev, searchQuery: '' }))}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200"
-            >
-              <X className="w-3.5 h-3.5" />
-            </button>
-          )}
-        </div>
-      </div>
     </header>
   );
 };
-

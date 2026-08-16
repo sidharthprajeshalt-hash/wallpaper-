@@ -1,75 +1,63 @@
 import { Category, Wallpaper } from '../types';
 
-// Import the 12 user wallpapers
-import imgAlpine from '../assets/images/alpine_green_summit_1786903818532.jpg';
-import imgKitten from '../assets/images/sea_breeze_kitten_1786903847808.jpg';
+// Import the 10 wallpapers
+import imgNike from '../assets/images/nike_green_flow_1786905085673.jpg';
+import imgWave from '../assets/images/great_ocean_wave_1786905480987.jpg';
+import imgSunnyHill from '../assets/images/retro_sunny_hill_1786905496091.jpg';
+import imgPurpleFlowers from '../assets/images/midnight_purple_bloom_1786903949825.jpg';
+import imgBlueFlowers from '../assets/images/translucent_blue_flora_1786903930966.jpg';
+import imgSparklingOcean from '../assets/images/sunlit_ocean_sparkles_1786903888074.jpg';
 import imgPinkVinyl from '../assets/images/pink_vinyl_turntable_1786903867397.jpg';
-import imgOceanSparkles from '../assets/images/sunlit_ocean_sparkles_1786903888074.jpg';
-import imgSkyBlossoms from '../assets/images/summer_sky_blossoms_1786903908205.jpg';
-import imgBlueFlora from '../assets/images/translucent_blue_flora_1786903930966.jpg';
-import imgPurpleBloom from '../assets/images/midnight_purple_bloom_1786903949825.jpg';
-import imgChefMeme from '../assets/images/chef_thumbs_up_1786903972011.jpg';
-import imgMessiMeme from '../assets/images/mini_footballer_meme_1786904085553.jpg';
-import imgCr7 from '../assets/images/young_cr7_mindset_1786904014903.jpg';
-import imgNeymar from '../assets/images/retro_football_point_1786904064973.jpg';
+import imgCatBySea from '../assets/images/sea_breeze_kitten_1786903847808.jpg';
+import imgMountainPeak from '../assets/images/alpine_green_summit_1786903818532.jpg';
 import imgChromeSpace from '../assets/images/chrome_cosmic_space_1786904036139.jpg';
 
 export const DEFAULT_CATEGORIES: Category[] = [
   {
-    id: 'sports',
-    name: 'Football & Legends',
-    slug: 'sports',
-    description: 'Iconic football stars, young legends, and classic athletic moments',
-    iconName: 'Flame',
-    bannerUrl: imgCr7,
-    count: 3,
-    gradient: 'from-blue-950 via-indigo-900 to-slate-950'
-  },
-  {
     id: 'nature',
     name: 'Nature & Scenery',
     slug: 'nature',
-    description: 'Misty green alpine summits, summer skies, kitten by the sea, and sparkling oceans',
+    description: 'Mountain peaks, sparkling ocean waters, and cat by the sea',
     iconName: 'Trees',
-    bannerUrl: imgAlpine,
-    count: 4,
+    bannerUrl: imgMountainPeak,
+    count: 3,
     gradient: 'from-emerald-900 via-teal-900 to-slate-950'
-  },
-  {
-    id: 'minimalist',
-    name: 'Aesthetic & Minimal',
-    slug: 'minimalist',
-    description: 'Dusty rose vinyl turntable records and delicate translucent botanicals',
-    iconName: 'Layers',
-    bannerUrl: imgPinkVinyl,
-    count: 2,
-    gradient: 'from-rose-950 via-pink-950 to-slate-950'
   },
   {
     id: 'amoled',
     name: 'AMOLED & Dark',
     slug: 'amoled',
-    description: 'Deep OLED blacks, luminescent midnight violet petals, and cosmic voyagers',
+    description: 'Dark purple flowers, ocean wave at night, and chrome in space',
     iconName: 'Moon',
-    bannerUrl: imgPurpleBloom,
-    count: 2,
+    bannerUrl: imgPurpleFlowers,
+    count: 3,
     gradient: 'from-purple-950 via-zinc-950 to-slate-950'
   },
   {
-    id: 'memes',
-    name: 'Memes & Viral',
-    slug: 'memes',
-    description: 'Humorous viral moments, pocket Lionel Messi, and kitchen chef thumbs up',
-    iconName: 'Smile',
-    bannerUrl: imgMessiMeme,
+    id: 'minimalist',
+    name: 'Aesthetic & Minimal',
+    slug: 'minimalist',
+    description: 'Green Nike wave, pink vinyl record, and blue transparent flowers',
+    iconName: 'Layers',
+    bannerUrl: imgNike,
+    count: 3,
+    gradient: 'from-rose-950 via-pink-950 to-slate-950'
+  },
+  {
+    id: 'art',
+    name: 'Art & Vintage',
+    slug: 'art',
+    description: 'Ocean wave painting and retro sun over green hills',
+    iconName: 'Palette',
+    bannerUrl: imgSunnyHill,
     count: 2,
-    gradient: 'from-amber-950 via-red-950 to-slate-950'
+    gradient: 'from-amber-950 via-sky-950 to-slate-950'
   },
   {
     id: 'space',
     name: 'Space & Cosmos',
     slug: 'space',
-    description: 'Chrome metallic cosmic voyager drifting in starry void',
+    description: 'Chrome figure drifting among stars in outer space',
     iconName: 'Sparkles',
     bannerUrl: imgChromeSpace,
     count: 1,
@@ -78,130 +66,106 @@ export const DEFAULT_CATEGORIES: Category[] = [
 ];
 
 export const INITIAL_WALLPAPERS: Wallpaper[] = [
-  // 1. Alpine Misty Summit
+  // 1. Green Nike
   {
-    id: 'wp-alpine-summit',
-    title: 'Alpine Misty Summit',
-    author: 'Mountain Explorer',
-    authorUrl: 'https://unsplash.com',
-    category: 'nature',
-    resolution: '2160 x 3840 (4K UHD)',
-    width: 2160,
-    height: 3840,
-    aspect: 'portrait',
-    format: '4K UHD',
-    tags: ['Alpine', 'Mountains', 'Fog', 'Emerald Ridge', 'Nature', '4K'],
-    colorPalette: ['#3f6212', '#15803d', '#cbd5e1', '#1e293b', '#f8fafc'],
-    imageUrl: imgAlpine,
-    thumbnail: imgAlpine,
-    likes: 4820,
-    views: 29400,
-    downloads: 14200,
-    featured: true,
-    createdAt: '2026-08-16',
-    description: 'Steep emerald mountain ridge crest shrouded in dramatic morning fog and alpine mist.'
-  },
-
-  // 2. Sea Breeze Kitten & Butterflies
-  {
-    id: 'wp-sea-breeze-kitten',
-    title: 'Sea Breeze Kitten & Butterflies',
-    author: 'Ocean Sanctuary',
-    authorUrl: 'https://unsplash.com',
-    category: 'nature',
-    resolution: '1080 x 1920 (FHD)',
-    width: 1080,
-    height: 1920,
-    aspect: 'portrait',
-    format: 'HDR',
-    tags: ['Kitten', 'Cat', 'Ocean', 'Butterflies', 'Sea Breeze', 'Aesthetic'],
-    colorPalette: ['#0284c7', '#38bdf8', '#0f172a', '#bae6fd', '#1e293b'],
-    imageUrl: imgKitten,
-    thumbnail: imgKitten,
-    likes: 7120,
-    views: 45800,
-    downloads: 21900,
-    featured: false,
-    createdAt: '2026-08-16',
-    description: 'Curious black kitten gazing over a sparkling sunlit ocean with butterflies fluttering across the water.'
-  },
-
-  // 3. Pink Vinyl Serenade
-  {
-    id: 'wp-pink-vinyl',
-    title: 'Pink Vinyl Serenade',
-    author: 'Vintage Audio Studio',
+    id: 'wp-green-nike',
+    title: 'Green Nike',
+    author: 'Studio Minimal',
     authorUrl: 'https://unsplash.com',
     category: 'minimalist',
-    resolution: '1080 x 1920 (FHD)',
-    width: 1080,
-    height: 1920,
-    aspect: 'portrait',
-    format: 'HDR',
-    tags: ['Vinyl', 'Turntable', 'Music', 'Dusty Pink', 'Vintage', 'Lo-Fi'],
-    colorPalette: ['#f43f5e', '#fda4af', '#e2e8f0', '#475569', '#94a3b8'],
-    imageUrl: imgPinkVinyl,
-    thumbnail: imgPinkVinyl,
-    likes: 3950,
-    views: 22100,
-    downloads: 11400,
-    featured: false,
-    createdAt: '2026-08-16',
-    description: "Vintage brushed aluminum turntable spinning a retro rose-pink vinyl record titled 'All of a Sudden'."
-  },
-
-  // 4. Sunlit Deep Ocean Ripples
-  {
-    id: 'wp-sunlit-ocean',
-    title: 'Sunlit Deep Ocean Ripples',
-    author: 'Aqua Marine Lens',
-    authorUrl: 'https://unsplash.com',
-    category: 'nature',
-    resolution: '1440 x 2560 (QHD)',
-    width: 1440,
-    height: 2560,
-    aspect: 'portrait',
-    format: 'AMOLED',
-    tags: ['Ocean', 'Water', 'Sparkles', 'Deep Navy', 'Sunlight', 'Calm'],
-    colorPalette: ['#082f49', '#0284c7', '#fef08a', '#0c4a6e', '#030712'],
-    imageUrl: imgOceanSparkles,
-    thumbnail: imgOceanSparkles,
-    likes: 5640,
-    views: 34100,
-    downloads: 18300,
-    featured: false,
-    createdAt: '2026-08-16',
-    description: 'Golden sunbeams and diamond-like sparkling reflections dancing over dark deep blue ocean waves.'
-  },
-
-  // 5. Cerulean Sky & Summer Blossoms
-  {
-    id: 'wp-sky-blossoms',
-    title: 'Cerulean Sky & Summer Blossoms',
-    author: 'Botanical Bloom',
-    authorUrl: 'https://unsplash.com',
-    category: 'nature',
     resolution: '1080 x 2400 (FHD+)',
     width: 1080,
     height: 2400,
     aspect: 'portrait',
-    format: '4K UHD',
-    tags: ['Flowers', 'Sky', 'Blue Sky', 'Blossoms', 'Summer', 'Vibrant'],
-    colorPalette: ['#2563eb', '#ec4899', '#16a34a', '#60a5fa', '#ffffff'],
-    imageUrl: imgSkyBlossoms,
-    thumbnail: imgSkyBlossoms,
-    likes: 4210,
-    views: 26900,
-    downloads: 13700,
-    featured: false,
+    format: 'AMOLED',
+    tags: ['Nike', 'Green', 'Swoosh', 'Minimal', 'Black'],
+    colorPalette: ['#16a34a', '#22c55e', '#000000', '#4ade80', '#14532d'],
+    imageUrl: imgNike,
+    thumbnail: imgNike,
+    likes: 8940,
+    views: 54100,
+    downloads: 28300,
+    featured: true,
     createdAt: '2026-08-16',
-    description: 'Vibrant magenta blossoms reaching upward into a clear cerulean blue sky filled with wispy clouds.'
+    description: 'Smooth green wave with white Nike logo on dark background.'
   },
 
-  // 6. Translucent Blue X-Ray Florals
+  // 2. Ocean Wave
   {
-    id: 'wp-blue-flora-xray',
-    title: 'Translucent Blue X-Ray Florals',
+    id: 'wp-ocean-wave',
+    title: 'Ocean Wave',
+    author: 'Ocean Art',
+    authorUrl: 'https://unsplash.com',
+    category: 'art',
+    resolution: '1080 x 1920 (FHD)',
+    width: 1080,
+    height: 1920,
+    aspect: 'portrait',
+    format: 'AMOLED',
+    tags: ['Wave', 'Ocean', 'Water', 'Art', 'Night Sky', 'Black'],
+    colorPalette: ['#000000', '#1d4ed8', '#38bdf8', '#ffffff', '#1e293b'],
+    imageUrl: imgWave,
+    thumbnail: imgWave,
+    likes: 11200,
+    views: 76500,
+    downloads: 41800,
+    featured: true,
+    createdAt: '2026-08-16',
+    description: 'Blue ocean wave crashing against a starry black sky.'
+  },
+
+  // 3. Sun & Clouds
+  {
+    id: 'wp-sun-clouds',
+    title: 'Sun & Clouds',
+    author: 'Retro Studio',
+    authorUrl: 'https://unsplash.com',
+    category: 'art',
+    resolution: '1080 x 1920 (FHD)',
+    width: 1080,
+    height: 1920,
+    aspect: 'portrait',
+    format: 'HDR',
+    tags: ['Sun', 'Clouds', 'Sky', 'Hill', 'Grass', 'Retro', 'Vintage'],
+    colorPalette: ['#38bdf8', '#facc15', '#65a30d', '#ffffff', '#1e3a8a'],
+    imageUrl: imgSunnyHill,
+    thumbnail: imgSunnyHill,
+    likes: 9400,
+    views: 62300,
+    downloads: 33700,
+    featured: true,
+    createdAt: '2026-08-16',
+    description: 'Yellow sun in a blue sky with white clouds over a green hill.'
+  },
+
+  // 4. Purple Flowers
+  {
+    id: 'wp-purple-flowers',
+    title: 'Purple Flowers',
+    author: 'Dark Flora',
+    authorUrl: 'https://unsplash.com',
+    category: 'amoled',
+    resolution: '1080 x 2340 (FHD+)',
+    width: 1080,
+    height: 2340,
+    aspect: 'portrait',
+    format: 'AMOLED',
+    tags: ['Purple', 'Flowers', 'Violet', 'Dark', 'AMOLED', 'Black'],
+    colorPalette: ['#000000', '#7c3aed', '#c084fc', '#4c1d95', '#18181b'],
+    imageUrl: imgPurpleFlowers,
+    thumbnail: imgPurpleFlowers,
+    likes: 8430,
+    views: 52000,
+    downloads: 27100,
+    featured: false,
+    createdAt: '2026-08-16',
+    description: 'Glowing purple flowers on pure black background.'
+  },
+
+  // 5. Blue Flowers
+  {
+    id: 'wp-blue-flowers',
+    title: 'Blue Flowers',
     author: 'Studio Minimal',
     authorUrl: 'https://unsplash.com',
     category: 'minimalist',
@@ -210,143 +174,119 @@ export const INITIAL_WALLPAPERS: Wallpaper[] = [
     height: 3120,
     aspect: 'portrait',
     format: 'Minimal',
-    tags: ['X-Ray', 'Botanical', 'Transparent', 'Blue Petals', 'Minimalist', 'Art'],
+    tags: ['Blue', 'Flowers', 'Petals', 'Minimal', 'White', 'Clean'],
     colorPalette: ['#ffffff', '#3b82f6', '#1e3a8a', '#93c5fd', '#f1f5f9'],
-    imageUrl: imgBlueFlora,
-    thumbnail: imgBlueFlora,
+    imageUrl: imgBlueFlowers,
+    thumbnail: imgBlueFlowers,
     likes: 6280,
     views: 39400,
     downloads: 19800,
     featured: false,
     createdAt: '2026-08-16',
-    description: 'Minimalist fine art translucent layered blue floral petals with delicate vein structures on a white canvas.'
+    description: 'Transparent blue floral petals on a clean white background.'
   },
 
-  // 7. Midnight Violet Petunias
+  // 6. Sparkling Ocean
   {
-    id: 'wp-midnight-petunias',
-    title: 'Midnight Violet Petunias',
-    author: 'OLED Lumens',
+    id: 'wp-sparkling-ocean',
+    title: 'Sparkling Ocean',
+    author: 'Sea Studio',
     authorUrl: 'https://unsplash.com',
-    category: 'amoled',
-    resolution: '1080 x 2340 (FHD+)',
-    width: 1080,
-    height: 2340,
+    category: 'nature',
+    resolution: '1440 x 2560 (QHD)',
+    width: 1440,
+    height: 2560,
     aspect: 'portrait',
     format: 'AMOLED',
-    tags: ['AMOLED', 'Purple', 'Violet', 'Dark Flora', 'Luminescent', 'OLED'],
-    colorPalette: ['#000000', '#7c3aed', '#c084fc', '#4c1d95', '#18181b'],
-    imageUrl: imgPurpleBloom,
-    thumbnail: imgPurpleBloom,
-    likes: 8430,
-    views: 52000,
-    downloads: 27100,
+    tags: ['Ocean', 'Water', 'Sparkles', 'Sunlight', 'Blue', 'Deep Sea'],
+    colorPalette: ['#082f49', '#0284c7', '#fef08a', '#0c4a6e', '#030712'],
+    imageUrl: imgSparklingOcean,
+    thumbnail: imgSparklingOcean,
+    likes: 5640,
+    views: 34100,
+    downloads: 18300,
     featured: false,
     createdAt: '2026-08-16',
-    description: 'Luminescent velvet violet petunias glowing softly against an ultra-pure black OLED background.'
+    description: 'Dark blue ocean surface with sparkling sunlight highlights.'
   },
 
-  // 8. Chef Lionel KFC Double Thumbs
+  // 7. Pink Vinyl
   {
-    id: 'wp-chef-lionel-meme',
-    title: 'Chef Lionel KFC Double Thumbs',
-    author: 'Viral Meme Vault',
+    id: 'wp-pink-vinyl',
+    title: 'Pink Vinyl',
+    author: 'Retro Audio',
     authorUrl: 'https://unsplash.com',
-    category: 'memes',
-    resolution: '1080 x 1440 (HD)',
-    width: 1080,
-    height: 1440,
-    aspect: 'portrait',
-    format: 'HDR',
-    tags: ['Meme', 'Chef', 'Thumbs Up', 'Funny', 'Viral', 'Kitchen'],
-    colorPalette: ['#dc2626', '#ffffff', '#475569', '#1e293b', '#f8fafc'],
-    imageUrl: imgChefMeme,
-    thumbnail: imgChefMeme,
-    likes: 9150,
-    views: 64200,
-    downloads: 31000,
-    featured: false,
-    createdAt: '2026-08-16',
-    description: 'Iconic funny viral meme of the restaurant chef lookalike giving two enthusiastic thumbs up in the kitchen.'
-  },
-
-  // 9. Pocket Lionel Messi #10
-  {
-    id: 'wp-pocket-messi',
-    title: 'Pocket Lionel Messi #10',
-    author: 'Albiceleste Vault',
-    authorUrl: 'https://unsplash.com',
-    category: 'sports',
+    category: 'minimalist',
     resolution: '1080 x 1920 (FHD)',
     width: 1080,
     height: 1920,
     aspect: 'portrait',
     format: 'HDR',
-    tags: ['Messi', 'Argentina', 'GOAT', 'Meme', 'Football', 'Funny'],
-    colorPalette: ['#38bdf8', '#ffffff', '#1e293b', '#0284c7', '#f59e0b'],
-    imageUrl: imgMessiMeme,
-    thumbnail: imgMessiMeme,
-    likes: 12400,
-    views: 89000,
-    downloads: 48900,
+    tags: ['Vinyl', 'Music', 'Pink', 'Turntable', 'Record', 'Retro'],
+    colorPalette: ['#f43f5e', '#fda4af', '#e2e8f0', '#475569', '#94a3b8'],
+    imageUrl: imgPinkVinyl,
+    thumbnail: imgPinkVinyl,
+    likes: 3950,
+    views: 22100,
+    downloads: 11400,
     featured: false,
     createdAt: '2026-08-16',
-    description: 'Legendary humorous mini Lionel Messi mirror selfie meme wearing the iconic Argentina #10 jersey.'
+    description: 'Pink vinyl record playing on a vintage silver turntable.'
   },
 
-  // 10. Young Cristiano Ronaldo CR7
+  // 8. Cat by the Sea
   {
-    id: 'wp-young-ronaldo-cr7',
-    title: 'Young Cristiano Ronaldo CR7',
-    author: 'Red Devils Archives',
+    id: 'wp-cat-sea',
+    title: 'Cat by the Sea',
+    author: 'Pet Gallery',
     authorUrl: 'https://unsplash.com',
-    category: 'sports',
+    category: 'nature',
     resolution: '1080 x 1920 (FHD)',
     width: 1080,
     height: 1920,
     aspect: 'portrait',
-    format: '4K UHD',
-    tags: ['Cristiano Ronaldo', 'CR7', 'Man United', 'Football', 'Legend', 'Mindset'],
-    colorPalette: ['#1e1b4b', '#312e81', '#64748b', '#f8fafc', '#0f172a'],
-    imageUrl: imgCr7,
-    thumbnail: imgCr7,
-    likes: 11200,
-    views: 78500,
-    downloads: 41200,
+    format: 'HDR',
+    tags: ['Cat', 'Kitten', 'Ocean', 'Butterflies', 'Sea', 'Blue'],
+    colorPalette: ['#0284c7', '#38bdf8', '#0f172a', '#bae6fd', '#1e293b'],
+    imageUrl: imgCatBySea,
+    thumbnail: imgCatBySea,
+    likes: 7120,
+    views: 45800,
+    downloads: 21900,
     featured: false,
     createdAt: '2026-08-16',
-    description: 'Young Cristiano Ronaldo with iconic curly hair in Manchester United training kit pointing to his temple.'
+    description: 'Black cat looking out at the blue ocean with butterflies.'
   },
 
-  // 11. Young Neymar Jr Santos Flash
+  // 9. Mountain Peak
   {
-    id: 'wp-young-neymar-santos',
-    title: 'Young Neymar Jr Santos Flash',
-    author: 'Santos Nostalgia',
+    id: 'wp-mountain-peak',
+    title: 'Mountain Peak',
+    author: 'Mountain Lens',
     authorUrl: 'https://unsplash.com',
-    category: 'sports',
-    resolution: '1920 x 1080 (FHD)',
-    width: 1920,
-    height: 1080,
-    aspect: 'landscape',
+    category: 'nature',
+    resolution: '2160 x 3840 (4K UHD)',
+    width: 2160,
+    height: 3840,
+    aspect: 'portrait',
     format: '4K UHD',
-    tags: ['Neymar', 'Santos FC', 'Brazil', 'Vintage Football', 'Monochrome', 'Legend'],
-    colorPalette: ['#000000', '#ffffff', '#71717a', '#27272a', '#d4d4d8'],
-    imageUrl: imgNeymar,
-    thumbnail: imgNeymar,
-    likes: 10800,
-    views: 74200,
-    downloads: 38600,
+    tags: ['Mountain', 'Green', 'Fog', 'Mist', 'Peak', 'Nature'],
+    colorPalette: ['#3f6212', '#15803d', '#cbd5e1', '#1e293b', '#f8fafc'],
+    imageUrl: imgMountainPeak,
+    thumbnail: imgMountainPeak,
+    likes: 4820,
+    views: 29400,
+    downloads: 14200,
     featured: false,
     createdAt: '2026-08-16',
-    description: 'Iconic vintage monochrome black and white portrait of young Neymar Jr in Santos kit pointing forward.'
+    description: 'Green mountain ridge covered in soft morning mist.'
   },
 
-  // 12. Chrome Silver Cosmic Voyager
+  // 10. Chrome in Space
   {
-    id: 'wp-chrome-cosmic-voyager',
-    title: 'Chrome Silver Cosmic Voyager',
-    author: 'Starlight Odyssey',
+    id: 'wp-chrome-space',
+    title: 'Chrome in Space',
+    author: 'Space Arts',
     authorUrl: 'https://unsplash.com',
     category: 'space',
     resolution: '3840 x 2160 (4K UHD)',
@@ -354,27 +294,27 @@ export const INITIAL_WALLPAPERS: Wallpaper[] = [
     height: 2160,
     aspect: 'landscape',
     format: 'AMOLED',
-    tags: ['Silver Surfer', 'Chrome', 'Space', 'Cosmos', 'Monochrome', 'Stars'],
+    tags: ['Chrome', 'Space', 'Stars', 'Silver', 'Black', 'Cosmos'],
     colorPalette: ['#000000', '#e2e8f0', '#94a3b8', '#1e293b', '#ffffff'],
     imageUrl: imgChromeSpace,
     thumbnail: imgChromeSpace,
     likes: 9540,
     views: 61000,
     downloads: 33400,
-    featured: false,
+    featured: true,
     createdAt: '2026-08-16',
-    description: 'Liquid chrome metallic silver celestial figure floating in deep space among glittering star constellations.'
+    description: 'Shiny silver chrome figure floating in black starry space.'
   }
 ];
 
 export const POPULAR_COLOR_PALETTES = [
-  { name: 'OLED Pure Black', hex: '#000000' },
-  { name: 'Emerald Green', hex: '#15803d' },
-  { name: 'Ocean Cyan', hex: '#0284c7' },
-  { name: 'Dusty Rose Pink', hex: '#f43f5e' },
-  { name: 'Electric Violet', hex: '#7c3aed' },
-  { name: 'Sky Cerulean', hex: '#2563eb' },
-  { name: 'Chrome Silver', hex: '#94a3b8' },
-  { name: 'KFC Crimson Red', hex: '#dc2626' },
-  { name: 'Starlight White', hex: '#ffffff' },
+  { name: 'Pure Black', hex: '#000000' },
+  { name: 'Emerald Green', hex: '#16a34a' },
+  { name: 'Sky Blue', hex: '#38bdf8' },
+  { name: 'Ocean Blue', hex: '#1d4ed8' },
+  { name: 'Yellow Sun', hex: '#facc15' },
+  { name: 'Pink', hex: '#f43f5e' },
+  { name: 'Purple', hex: '#7c3aed' },
+  { name: 'Silver', hex: '#94a3b8' },
+  { name: 'White', hex: '#ffffff' },
 ];

@@ -40,9 +40,9 @@ interface WallpaperContextType {
   filteredWallpapers: Wallpaper[];
 }
 
-const STORAGE_KEY_WALLPAPERS = 'wallarthd_custom_wallpapers_v3';
-const STORAGE_KEY_FAVORITES = 'wallarthd_favorites_v3';
-const STORAGE_KEY_CATEGORIES = 'wallarthd_custom_categories_v3';
+const STORAGE_KEY_WALLPAPERS = 'wallarthd_custom_wallpapers_v5';
+const STORAGE_KEY_FAVORITES = 'wallarthd_favorites_v5';
+const STORAGE_KEY_CATEGORIES = 'wallarthd_custom_categories_v5';
 const STORAGE_KEY_MOBILE_MODE = 'wallarthd_mobile_mode';
 
 const INITIAL_FILTERS: FilterState = {
@@ -62,20 +62,20 @@ const DEFAULT_CUSTOM_CATEGORIES: CustomCategory[] = [
     id: 'cat-night-vibes',
     userId: 'default',
     name: 'Midnight & Dark',
-    description: 'Moody, deep blacks and nocturnal ambient highlights',
+    description: 'Moody, deep blacks, OLED glow, and night skies',
     icon: 'Moon',
     color: '#8b5cf6',
-    wallpaperIds: ['wp-midnight-petunias', 'wp-chrome-cosmic-voyager'],
+    wallpaperIds: ['wp-purple-flowers', 'wp-ocean-wave', 'wp-green-nike', 'wp-chrome-space'],
     createdAt: '2026-08-16'
   },
   {
-    id: 'cat-football-legends',
+    id: 'cat-art-nature',
     userId: 'default',
-    name: 'Football Legends & Memes',
-    description: 'Young Ronaldo, Santos Neymar, and pocket Messi',
-    icon: 'Flame',
-    color: '#06b6d4',
-    wallpaperIds: ['wp-young-ronaldo-cr7', 'wp-young-neymar-santos', 'wp-pocket-messi', 'wp-chef-lionel-meme'],
+    name: 'Art & Scenery',
+    description: 'Sun & clouds, ocean waves, and mountain peaks',
+    icon: 'Palette',
+    color: '#38bdf8',
+    wallpaperIds: ['wp-sun-clouds', 'wp-ocean-wave', 'wp-mountain-peak', 'wp-cat-sea'],
     createdAt: '2026-08-16'
   }
 ];
@@ -99,9 +99,9 @@ export const WallpaperProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const [favorites, setFavorites] = useState<string[]>(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY_FAVORITES);
-      return saved ? JSON.parse(saved) : ['wp-alpine-summit', 'wp-pocket-messi', 'wp-young-ronaldo-cr7', 'wp-midnight-petunias'];
+      return saved ? JSON.parse(saved) : ['wp-green-nike', 'wp-ocean-wave', 'wp-sun-clouds', 'wp-purple-flowers'];
     } catch {
-      return ['wp-alpine-summit', 'wp-pocket-messi', 'wp-young-ronaldo-cr7', 'wp-midnight-petunias'];
+      return ['wp-green-nike', 'wp-ocean-wave', 'wp-sun-clouds', 'wp-purple-flowers'];
     }
   });
 

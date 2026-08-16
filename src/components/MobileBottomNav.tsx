@@ -9,8 +9,10 @@ import {
   Download,
   Smartphone,
   Upload,
-  User
+  User,
+  Dices
 } from 'lucide-react';
+import { sounds } from '../utils/audioFeedback';
 
 export const MobileBottomNav: React.FC = () => {
   const {
@@ -44,7 +46,8 @@ export const MobileBottomNav: React.FC = () => {
           id="mobile-nav-explore"
           type="button"
           onClick={() => {
-            setFilters(prev => ({
+            sounds.playTap();
+            setFilters((prev) => ({
               ...prev,
               selectedCategory: 'all',
               selectedCustomCategory: null,
@@ -67,7 +70,8 @@ export const MobileBottomNav: React.FC = () => {
           id="mobile-nav-favorites"
           type="button"
           onClick={() => {
-            setFilters(prev => ({
+            sounds.playTap();
+            setFilters((prev) => ({
               ...prev,
               onlyFavorites: !prev.onlyFavorites,
               selectedCustomCategory: null,
@@ -93,28 +97,34 @@ export const MobileBottomNav: React.FC = () => {
         <button
           id="mobile-nav-ai"
           type="button"
-          onClick={() => setIsAiModalOpen(true)}
+          onClick={() => {
+            sounds.playSparkle();
+            setIsAiModalOpen(true);
+          }}
           className="flex flex-col items-center justify-center py-1 px-1 text-slate-300 hover:text-white"
         >
           <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 to-pink-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/30 -mt-3 border-2 border-slate-950">
             <Wand2 className="w-4 h-4" />
           </div>
-          <span className="text-[10px] leading-tight mt-0.5 font-semibold text-slate-200">AI Studio</span>
+          <span className="text-[10px] leading-tight mt-0.5 font-medium text-indigo-300">Create AI</span>
         </button>
 
-        {/* Custom Boards */}
+        {/* My Boards */}
         <button
           id="mobile-nav-boards"
           type="button"
-          onClick={() => setIsCategoryModalOpen(true)}
-          className={`flex flex-col items-center justify-center py-1.5 px-1 rounded-xl relative transition-all ${
+          onClick={() => {
+            sounds.playTap();
+            setIsCategoryModalOpen(true);
+          }}
+          className={`flex flex-col items-center justify-center py-1.5 px-1 rounded-xl transition-all ${
             filters.selectedCustomCategory ? 'text-purple-400 font-bold' : 'text-slate-400 hover:text-slate-200'
           }`}
         >
           <div className="relative">
             <FolderHeart className="w-5 h-5 mb-0.5" />
             {customCategories.length > 0 && (
-              <span className="absolute -top-1 -right-2 px-1.5 py-0.2 text-[9px] font-bold bg-purple-500 text-white rounded-full leading-none">
+              <span className="absolute -top-1 -right-2 px-1.5 py-0.2 text-[9px] font-bold bg-purple-600 text-white rounded-full leading-none">
                 {customCategories.length}
               </span>
             )}
@@ -122,15 +132,18 @@ export const MobileBottomNav: React.FC = () => {
           <span className="text-[10px] leading-tight">Boards</span>
         </button>
 
-        {/* APK / Install Hub */}
+        {/* APK / Account */}
         <button
           id="mobile-nav-apk"
           type="button"
-          onClick={() => setIsApkModalOpen(true)}
+          onClick={() => {
+            sounds.playTap();
+            setIsApkModalOpen(true);
+          }}
           className="flex flex-col items-center justify-center py-1.5 px-1 rounded-xl text-emerald-400 hover:text-emerald-300 transition-all"
         >
-          <Smartphone className="w-5 h-5 mb-0.5" />
-          <span className="text-[10px] leading-tight font-medium">Get APK</span>
+          <Download className="w-5 h-5 mb-0.5" />
+          <span className="text-[10px] leading-tight">Get APK</span>
         </button>
       </div>
     </nav>
