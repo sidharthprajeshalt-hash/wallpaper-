@@ -1,0 +1,6 @@
+{
+  "name": "WallArt HD - High-Res Wallpapers & Mobile APK Hub",
+  "description": "Premium high-resolution wallpaper platform with curated 4K UHD collections, live lock screen preview, custom user categories, favorites, AI wallpaper creator, and instant mobile PWA/APK install packager.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
