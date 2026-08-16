@@ -26,6 +26,7 @@ export interface Wallpaper {
   colorPalette: string[];
   imageUrl: string;
   thumbnail: string;
+  fallbackUrl?: string;
   likes: number;
   views: number;
   downloads: number;

@@ -40,9 +40,9 @@ interface WallpaperContextType {
   filteredWallpapers: Wallpaper[];
 }
 
-const STORAGE_KEY_WALLPAPERS = 'wallarthd_custom_wallpapers_v5';
-const STORAGE_KEY_FAVORITES = 'wallarthd_favorites_v5';
-const STORAGE_KEY_CATEGORIES = 'wallarthd_custom_categories_v5';
+const STORAGE_KEY_WALLPAPERS = 'wallarthd_custom_wallpapers_v9';
+const STORAGE_KEY_FAVORITES = 'wallarthd_favorites_v9';
+const STORAGE_KEY_CATEGORIES = 'wallarthd_custom_categories_v9';
 const STORAGE_KEY_MOBILE_MODE = 'wallarthd_mobile_mode';
 
 const INITIAL_FILTERS: FilterState = {

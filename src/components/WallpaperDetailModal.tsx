@@ -230,6 +230,11 @@ export const WallpaperDetailModal: React.FC = () => {
                 <img
                   src={selectedWallpaper.imageUrl}
                   alt={selectedWallpaper.title}
+                  onError={(e) => {
+                    if (selectedWallpaper.fallbackUrl) {
+                      (e.currentTarget as HTMLImageElement).src = selectedWallpaper.fallbackUrl;
+                    }
+                  }}
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
@@ -238,6 +243,11 @@ export const WallpaperDetailModal: React.FC = () => {
                 <img
                   src={selectedWallpaper.imageUrl}
                   alt="Custom Color Graded"
+                  onError={(e) => {
+                    if (selectedWallpaper.fallbackUrl) {
+                      (e.currentTarget as HTMLImageElement).src = selectedWallpaper.fallbackUrl;
+                    }
+                  }}
                   style={{
                     filter: cssFilter,
                     clipPath: showSplitCompare ? `polygon(0 0, ${splitPos}% 0, ${splitPos}% 100%, 0 100%)` : undefined

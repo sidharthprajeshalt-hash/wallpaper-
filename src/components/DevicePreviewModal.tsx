@@ -331,6 +331,11 @@ export const DevicePreviewModal: React.FC = () => {
                   <img
                     src={previewWallpaper.imageUrl}
                     alt={previewWallpaper.title}
+                    onError={(e) => {
+                      if (previewWallpaper.fallbackUrl) {
+                        (e.currentTarget as HTMLImageElement).src = previewWallpaper.fallbackUrl;
+                      }
+                    }}
                     style={{
                       filter: `brightness(${brightness}%) contrast(${contrast}%) saturate(${saturation}%) hue-rotate(${hueRotate}deg) blur(${blur}px)`
                     }}

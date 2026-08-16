@@ -64,6 +64,11 @@ const WallpaperGallery: React.FC = () => {
               <img
                 src={featuredWallpaper.imageUrl}
                 alt={featuredWallpaper.title}
+                onError={(e) => {
+                  if (featuredWallpaper.fallbackUrl) {
+                    (e.currentTarget as HTMLImageElement).src = featuredWallpaper.fallbackUrl;
+                  }
+                }}
                 className="absolute inset-0 w-full h-full object-cover object-center"
                 referrerPolicy="no-referrer"
               />

@@ -32,7 +32,9 @@ export const WallpaperCard: React.FC<WallpaperCardProps> = ({ wallpaper }) => {
     setFilters
   } = useWallpaper();
 
+  const [currentSrc, setCurrentSrc] = useState(wallpaper.thumbnail || wallpaper.imageUrl);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [hasErrored, setHasErrored] = useState(false);
   const [showCategoryPicker, setShowCategoryPicker] = useState(false);
   const [downloadSuccess, setDownloadSuccess] = useState(false);
   const [heartBurst, setHeartBurst] = useState(false);
@@ -42,6 +44,14 @@ export const WallpaperCard: React.FC<WallpaperCardProps> = ({ wallpaper }) => {
   const lastTapRef = useRef<number>(0);
 
   const favorited = isFavorite(wallpaper.id);
+
+  const handleImageError = () => {
+    if (!hasErrored && wallpaper.fallbackUrl && currentSrc !== wallpaper.fallbackUrl) {
+      setCurrentSrc(wallpaper.fallbackUrl);
+      setHasErrored(true);
+    }
+    setIsLoaded(true);
+  };
 
   // Handle double-tap / double-click to like
   const handleCardClick = (e: React.MouseEvent) => {
@@ -159,11 +169,12 @@ export const WallpaperCard: React.FC<WallpaperCardProps> = ({ wallpaper }) => {
         )}
 
         <img
-          src={wallpaper.thumbnail}
+          src={currentSrc}
           alt={wallpaper.title}
           onLoad={() => setIsLoaded(true)}
+          onError={handleImageError}
           className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ${
-            isLoaded ? 'opacity-100' : 'opacity-0'
+            isLoaded ? 'opacity-100' : 'opacity-90'
           }`}
           loading="lazy"
           referrerPolicy="no-referrer"
