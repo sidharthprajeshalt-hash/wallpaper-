@@ -1,16 +1,16 @@
 import { Category, Wallpaper } from '../types';
 
-// Import the 10 wallpapers
-import imgNike from '../assets/images/nike_green_flow_1786905085673.jpg';
-import imgWave from '../assets/images/great_ocean_wave_1786905480987.jpg';
-import imgSunnyHill from '../assets/images/retro_sunny_hill_1786905496091.jpg';
-import imgPurpleFlowers from '../assets/images/midnight_purple_bloom_1786903949825.jpg';
-import imgBlueFlowers from '../assets/images/translucent_blue_flora_1786903930966.jpg';
-import imgSparklingOcean from '../assets/images/sunlit_ocean_sparkles_1786903888074.jpg';
-import imgPinkVinyl from '../assets/images/pink_vinyl_turntable_1786903867397.jpg';
-import imgCatBySea from '../assets/images/sea_breeze_kitten_1786903847808.jpg';
-import imgMountainPeak from '../assets/images/alpine_green_summit_1786903818532.jpg';
-import imgChromeSpace from '../assets/images/chrome_cosmic_space_1786904036139.jpg';
+// Static public wallpaper image URLs (served directly from /public/wallpapers/)
+const imgNike = '/wallpapers/nike_green_flow_1786905085673.jpg';
+const imgWave = '/wallpapers/great_ocean_wave_1786905480987.jpg';
+const imgSunnyHill = '/wallpapers/retro_sunny_hill_1786905496091.jpg';
+const imgPurpleFlowers = '/wallpapers/midnight_purple_bloom_1786903949825.jpg';
+const imgBlueFlowers = '/wallpapers/translucent_blue_flora_1786903930966.jpg';
+const imgSparklingOcean = '/wallpapers/sunlit_ocean_sparkles_1786903888074.jpg';
+const imgPinkVinyl = '/wallpapers/pink_vinyl_turntable_1786903867397.jpg';
+const imgCatBySea = '/wallpapers/sea_breeze_kitten_1786903847808.jpg';
+const imgMountainPeak = '/wallpapers/alpine_green_summit_1786903818532.jpg';
+const imgChromeSpace = '/wallpapers/chrome_cosmic_space_1786904036139.jpg';
 
 export const DEFAULT_CATEGORIES: Category[] = [
   {
